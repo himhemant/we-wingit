@@ -1,12 +1,13 @@
+/*
 import { Configuration, OpenAIApi } from 'openai'
-// import { process } from './env'
+import { process } from './env'
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 })
 
 const openai = new OpenAIApi(configuration)
-
+*/
 const chatbotConversation = document.getElementById('chatbot-conversation')
  
 let conversationStr = ''
@@ -15,7 +16,6 @@ document.addEventListener('submit', (e) => {
     e.preventDefault()
     const userInput = document.getElementById('user-input') 
     conversationStr += ` ${userInput.value} ->`
-    //console.log(userInput.value)
     fetchReply()
     const newSpeechBubble = document.createElement('div')
     newSpeechBubble.classList.add('speech', 'speech-human')
@@ -26,6 +26,19 @@ document.addEventListener('submit', (e) => {
 }) 
 
 async function fetchReply(){
+    const url = 'https://deft-smakager-03b2a5.netlify.app/.netlify/functions/fetchAI'
+    
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'content-type': 'text/plain',
+        },
+        body: conversationStr
+    })
+    const data = await response.json()
+    console.log(data)
+
+    /*
     const response = await openai.createCompletion({
         model: 'davinci:ft-personal-2023-06-07-20-42-57',
         prompt: conversationStr,
@@ -38,6 +51,7 @@ async function fetchReply(){
     conversationStr += ` ${response.data.choices[0].text} \n`
     renderTypewriterText(response.data.choices[0].text)
     console.log(conversationStr)
+    */
 }
 
 function renderTypewriterText(text) {
