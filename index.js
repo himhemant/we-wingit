@@ -38,8 +38,8 @@ async function fetchReply(){
     })
     const data = await response.json()
     console.log(data.reply.choices[0].text)
-    // conversationStr += ` ${response.data.reply.choices[0].text} ->`
-    // renderTypewriterText(response.data.reply.choices[0].text)
+    conversationStr += ` ${data.reply.choices[0].text} ->`
+    renderTypewriterText(data.reply.choices[0].text)
 
     /*
     const response = await openai.createCompletion({
