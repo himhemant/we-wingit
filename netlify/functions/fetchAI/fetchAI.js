@@ -14,8 +14,8 @@ const handler = async (event) => {
       model: 'davinci:ft-personal-2023-06-09-10-01-43',
       prompt: event.body,
       max_tokens: 500,
-      presence_penalty: 0.3,
-      frequency_penalty: 0,
+      presence_penalty: 0,
+      frequency_penalty: 0.3,
       temperature: 0,
       stop: ['\n', '->']
     })
